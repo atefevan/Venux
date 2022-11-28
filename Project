@@ -1,0 +1,68 @@
+#!/bin/bash
+# This Project is created in exactly in 13 hrs and 20 min of time.
+# Project has some tiny features that can an user can enjoy much !!
+# Features...
+# It can play a beep system sound ...
+# It can mail to a particular persons email with subject and bosy supported Features..
+# It can also set an super user (Premium) compare to the other users...
+
+function Intro(){
+	whiptail --title "MultiOpener" --msgbox "Welcome to the Project !!\nThis project is basically an example of bash Scripting...\nThe Fun fact is sometimes this act like an WebDriver !!" 8 108
+}
+
+
+function Options(){
+
+	ADVSEL=$(whiptail --title "Menu" --fb --menu "Explore on" 15 60 4 \
+	"1" "Play 1500hrz motherBoard Sound" \
+	"2" "Show Date & Time" \
+	"3" "Poke a song" \
+	"4" "Write a Note [Press N]" \
+	"5" "Show System Config" \
+	"6" "Mini Selfi !" 3>&1 1>&2 2>&3)
+
+  case $ADVSEL in
+
+  1) 
+	echo "Playing the Beep"
+	#echo -ne '\007'
+	speaker-test -t sine -f 1500
+	sleep .5; spd-say 'Playing One Thousand Five hundred Rate Sound'
+	echo -en '\007'
+	whiptail --title "Beep" --msgbox "beep beep" 8 45
+
+   ;;
+  2) 
+       
+       whiptail --title "Date & Time" --msgbox "Date :"$(date +"%d-%m-%y")" \nTime : "$(date "+%T")" " 8 45
+   ;;
+
+  3)
+	echo "Played Believer ft. Lea Michele"
+	(sleep 2; play '/home/macotonish/Downloads/sam.mp3')
+	whiptail --title "Song" --msgbox "Played Believer by Lea Michele" 8 45
+   ;;
+
+  4)
+       read var1
+       if [ $var1 != "N"];
+	 then
+	touch "Wrong Input"
+	else
+	touch newNote.txt
+	nano newNote.txt
+	fi
+   ;;
+  
+  5)
+      sudo lshw -short
+      sleep 10;
+   ;;
+  6)
+	echo "Image view with "Feh"\nLocation : 'home/macotonish/Downloads/cats.jpg'"
+	feh '/home/macotonish/Downloads/cats.jpg'
+   esac
+}
+Intro
+ while :; do Options; done
+#3>&1 1>&2 2>&3
